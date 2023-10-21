@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://yum58jlqv6hx"]
+
+[ext_resource type="Script" path="res://assets/scripts/TestPlayer.gd" id="1_1q7jr"]
+[ext_resource type="Script" path="res://assets/scripts/CameraControl.gd" id="2_pm5ik"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sidt7"]
+height = 2.14336
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tali1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cy0j3"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2ltv4"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fg1vt"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="test" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.0284, 0)
+script = ExtResource("1_1q7jr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50754, 0)
+shape = SubResource("CapsuleShape3D_sidt7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49216, 0)
+mesh = SubResource("CapsuleMesh_tali1")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.20694, -0.382818)
+script = ExtResource("2_pm5ik")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 3.91397, -8.20479)
+mesh = SubResource("BoxMesh_cy0j3")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_2ltv4")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fg1vt")
