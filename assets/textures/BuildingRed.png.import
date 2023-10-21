@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbmt1g4bcxki4"
-path.s3tc="res://.godot/imported/WindowTextureUnlit.png-66a238b085d6cf02d99f179a84ff32de.s3tc.ctex"
+uid="uid://dhnb6dcgjobno"
+path.s3tc="res://.godot/imported/BuildingRed.png-ed91a990f9a8384caad73cfc54790c64.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/WindowTextureUnlit.png"
-dest_files=["res://.godot/imported/WindowTextureUnlit.png-66a238b085d6cf02d99f179a84ff32de.s3tc.ctex"]
+source_file="res://assets/textures/BuildingRed.png"
+dest_files=["res://.godot/imported/BuildingRed.png-ed91a990f9a8384caad73cfc54790c64.s3tc.ctex"]
 
 [params]
 
