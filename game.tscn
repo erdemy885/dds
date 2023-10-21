@@ -17,6 +17,7 @@ data = PackedVector3Array(-50, 0.5, 50, 50, 0.5, 50, -50, -0.5, 50, 50, 0.5, 50,
 background_mode = 1
 background_color = Color(0.419608, 0.737255, 1, 1)
 ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
 
 [node name="game" type="Node3D"]
 
@@ -28,9 +29,6 @@ mesh = SubResource("BoxMesh_ll6we")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0ntwv")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15.5038, 0)
-
 [node name="player" parent="." instance=ExtResource("1_h3wr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.72397, 0)
 script = ExtResource("2_eqe7c")
@@ -40,3 +38,8 @@ transform = Transform3D(-3.78552e-08, 0.5, -0.866025, 2.18557e-08, 0.866025, 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cjia2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.368173, 0.929757, 0, -0.929757, -0.368173, -7.93154, 2.62626, -0.447525)
+shadow_enabled = true
+shadow_blur = 2.675
