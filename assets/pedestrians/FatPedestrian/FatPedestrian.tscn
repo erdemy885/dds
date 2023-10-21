@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://beiv1vijpu2a2"]
+
+[ext_resource type="Script" path="res://assets/pedestrians/FatPedestrian.gd" id="1_jtu0a"]
+[ext_resource type="Script" path="res://assets/pedestrians/MoveComponent.gd" id="2_p4h0y"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5hqnt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a2aqd"]
+
+[node name="FatPedestrian" type="RigidBody3D" node_paths=PackedStringArray("moveComponent")]
+script = ExtResource("1_jtu0a")
+moveComponent = NodePath("MoveComponent")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_5hqnt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_a2aqd")
+
+[node name="MoveComponent" type="Node3D" parent="."]
+script = ExtResource("2_p4h0y")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4jqdbx44mrux"]
+
+[ext_resource type="Script" path="res://assets/pedestrians/MoveComponent.gd" id="1_oeo5c"]
+
+[node name="MoveComponent" type="Node3D"]
+script = ExtResource("1_oeo5c")
