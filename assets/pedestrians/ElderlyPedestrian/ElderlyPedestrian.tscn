@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1feacgpr42oo"]
+
+[ext_resource type="Script" path="res://assets/pedestrians/ElderlyPedestrian.gd" id="1_6t6wx"]
+[ext_resource type="Script" path="res://assets/pedestrians/MoveComponent.gd" id="2_0spra"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5hqnt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a2aqd"]
+
+[node name="Pedestrian1" type="RigidBody3D"]
+script = ExtResource("1_6t6wx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_5hqnt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_a2aqd")
+
+[node name="MoveComponent" type="Node3D" parent="."]
+script = ExtResource("2_0spra")
