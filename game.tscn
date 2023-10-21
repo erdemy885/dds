@@ -1,9 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://bukk7gmxkx0dd"]
-
-[ext_resource type="ArrayMesh" uid="uid://uux5sxuvpw6k" path="res://assets/models/car_body.obj" id="1_wb6ox"]
+[gd_scene format=3 uid="uid://bukk7gmxkx0dd"]
 
 [node name="game" type="Node3D"]
-
-[node name="CarBody" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20302, 2.38419e-07, 2.06555)
-mesh = ExtResource("1_wb6ox")
