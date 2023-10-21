@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bukk7gmxkx0dd"]
 
-[ext_resource type="PackedScene" uid="uid://c3taj6dr8oaxd" path="res://car.tscn" id="1_h3wr8"]
+[ext_resource type="PackedScene" uid="uid://eo8suwiayffu" path="res://car.tscn" id="1_h3wr8"]
 [ext_resource type="Script" path="res://assets/scripts/driving.gd" id="2_eqe7c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqnme"]
