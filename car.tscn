@@ -23,57 +23,57 @@ mesh = ExtResource("2_pxqt0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_fnbjr")
 
-[node name="back-left" type="VehicleWheel3D" parent="."]
+[node name="back_left" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.31, -1.83, -2)
 use_as_traction = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="back-left"]
+[node name="CarWheel" type="MeshInstance3D" parent="back_left"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
 
-[node name="back-right" type="VehicleWheel3D" parent="."]
+[node name="back_right" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.31, -1.83, 2)
 use_as_traction = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="back-right"]
+[node name="CarWheel" type="MeshInstance3D" parent="back_right"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
 
-[node name="front-left" type="VehicleWheel3D" parent="."]
+[node name="front_left" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.31, -1.83, -2)
 use_as_steering = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="front-left"]
+[node name="CarWheel" type="MeshInstance3D" parent="front_left"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
 
-[node name="front-right" type="VehicleWheel3D" parent="."]
+[node name="front_right" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.31, -1.83, 2)
 use_as_steering = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="front-right"]
+[node name="CarWheel" type="MeshInstance3D" parent="front_right"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
