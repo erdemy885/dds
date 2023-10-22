@@ -1,5 +1,7 @@
 extends VehicleBody3D
 
+@onready var gulp_sfx = get_node("gulp_sfx")
+
 var max_rpm = 100
 var max_torque = 400
 var steering_speed = 5
@@ -19,6 +21,8 @@ func _physics_process(delta):
 		if steering_speed < 0:
 			steering_speed = 0
 		time_since_last_drink = 0
+		
+		gulp_sfx.play()
 		
 	steering = lerp(steering, Input.get_axis("right", "left") * 0.3, steering_speed * delta)
 	var acceleration = Input.get_axis("back", "forward")
