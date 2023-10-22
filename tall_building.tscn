@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnhc0ctiphpqe"]
+
+[ext_resource type="PackedScene" uid="uid://bppid62tym7pf" path="res://assets/models/tall_building.glb" id="1_dqwp7"]
+
+[node name="tall_building" instance=ExtResource("1_dqwp7")]

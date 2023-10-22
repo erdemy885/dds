@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://bx7r77s2ats5i"]
+
+[ext_resource type="Script" path="res://building_generator.gd" id="1_ljbgm"]
+[ext_resource type="PackedScene" uid="uid://eo8suwiayffu" path="res://car.tscn" id="2_hhxf1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5fmks"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cwkmu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jq28n"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fhvk5"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nn87j"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qn2eh"]
+
+[node name="level_section" type="Node3D"]
+script = ExtResource("1_ljbgm")
+
+[node name="Terrain0" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 60, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5fmks")
+
+[node name="SideWalkLeft" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.709279, -0.56347)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/SideWalkLeft"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_cwkmu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/SideWalkLeft"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_jq28n")
+
+[node name="SideWalkRight" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0.707935, 0.606593)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/SideWalkRight"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_cwkmu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/SideWalkRight"]
+transform = Transform3D(2, 5.82602e-23, 2.30025e-23, -7.00454e-23, 1.5, 2.64014e-24, 6.91826e-23, -1.30646e-23, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_jq28n")
+
+[node name="InvisibleLeftWall" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -6.66422e-31, 2.91302e-38, 0, -4.37114e-08, -1, 6.66422e-31, 1, -4.37114e-08, 0, 10.1762, -0.817959)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/InvisibleLeftWall"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_fhvk5")
+
+[node name="InvisibleRightWall" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -6.66423e-31, 2.91303e-38, 0, -4.37114e-08, -1, 6.66423e-31, 1, -4.37114e-08, 2.08165e-12, 10.0923, 0.85814)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/InvisibleRightWall"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_fhvk5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_nn87j")
+
+[node name="LeftBuildingPlane" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.679695, -1.31456)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/LeftBuildingPlane"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0.00152254)
+mesh = SubResource("BoxMesh_qn2eh")
+
+[node name="RightBuildingPlane" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0.794754, 1.35658)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/RightBuildingPlane"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, -0.0921803, 0)
+mesh = SubResource("BoxMesh_qn2eh")
+
+[node name="car" parent="." instance=ExtResource("2_hhxf1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5744, 9.73461, -5.33246)
