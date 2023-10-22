@@ -1,32 +1,75 @@
 extends Node3D
 
-@onready var short_building = load("res://assets/models/short_building.glb")
-@onready var medium_building = load("res://assets/models/medium_building.glb")
-@onready var tall_building = load("res://assets/models/tall_building.glb")
-@onready var wide_building = load("res://assets/models/wide_building.glb")
+@onready var short_building = preload("res://short_building.tscn")
+@onready var medium_building = preload("res://medium_building.tscn")
+@onready var tall_building = preload("res://tall_building.tscn")
+@onready var wide_building = preload("res://wide_building.tscn")
 @onready var rng = RandomNumberGenerator.new()
 
-@export var amount = 1
-@export var offset = 5
+@onready var materials = [
+	preload("res://assets/textures/red_mat.tres"),
+	preload("res://assets/textures/green_mat.tres"),
+	preload("res://assets/textures/purple_mat.tres"),
+	preload("res://assets/textures/yellow_mat.tres"),
+	preload("res://assets/textures/turq_mat.tres"),
+	preload("res://assets/textures/blue_mat.tres")
+]
+
+@export var amount = 10
+@export var offset = 20
+
+var prev_wide = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for i in range(amount): 
-			var random_num = randi() % 4
+			var random_num = randi() % 3
 			
 			var chosen_building = short_building
+			var mesh_node_path = "ShortBuilding"
+			var wide_offset = 0
 			
 			if random_num == 1:
 				chosen_building = medium_building
+				mesh_node_path = "MediumBuilding"
 			elif random_num == 2:
 				chosen_building = tall_building
+				mesh_node_path = "TallBuilding"
 			elif random_num == 3:
-				chosen_building = wide_building	
+				chosen_building = wide_building
+				
+			if prev_wide:
+				wide_offset = 25
 			
-			var building_instance = chosen_building.instance()
+			rng.randomize()
 			
-			building_instance.TranslateObjectLocal(Vector3(0, 0, i * offset))
-			building_instance.transform = building_instance.transform
+			var building_instance = chosen_building.instantiate()
+			
+			building_instance.transform = building_instance.transform.rotated(Vector3(0, 1, 0), -PI/2)
+			building_instance.transform = building_instance.transform.translated(Vector3(offset * i - wide_offset, 1.6, -28.7))
+			
+			var mesh_node: MeshInstance3D = building_instance.get_node(mesh_node_path)
+			var mat_index = rng.randi_range(0, materials.size() - 1)
+			mesh_node.set_surface_override_material(0, materials[mat_index])
+			
+			add_child(building_instance)
+			
+			building_instance = chosen_building.instantiate()
+			building_instance.transform = building_instance.transform.rotated(Vector3(0, 1, 0), PI/2)
+			building_instance.transform = building_instance.transform.translated(Vector3(offset * i - wide_offset, 1.6, 32.5))
+			
+			mesh_node = building_instance.get_node(mesh_node_path)
+			mat_index = rng.randi_range(0, materials.size() - 1)
+			
+			mesh_node.set_surface_override_material(0, materials[mat_index])
+			
+			add_child(building_instance)
+			
+			if random_num == 3:
+				prev_wide = true
+			else:
+				prev_wide = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
