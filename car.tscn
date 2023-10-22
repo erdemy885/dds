@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://eo8suwiayffu"]
 
 [ext_resource type="Texture2D" uid="uid://ytdg64jx26w1" path="res://assets/textures/CarRed.png" id="1_do7bp"]
-[ext_resource type="ArrayMesh" uid="uid://gqqlkbok31o" path="res://assets/models/car_body.obj" id="2_pxqt0"]
+[ext_resource type="ArrayMesh" uid="uid://13c6mw1ijtjl" path="res://assets/models/car_body.obj" id="2_pxqt0"]
 [ext_resource type="Texture2D" uid="uid://b07okfr0gckr0" path="res://assets/textures/WheelTexture.png" id="3_ebug5"]
-[ext_resource type="ArrayMesh" uid="uid://clrowc88x5jsk" path="res://assets/models/car_wheel.obj" id="4_1bge8"]
+[ext_resource type="ArrayMesh" uid="uid://becyjibjkupnm" path="res://assets/models/car_wheel.obj" id="4_1bge8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6mykx"]
 albedo_texture = ExtResource("1_do7bp")
@@ -15,6 +15,10 @@ points = PackedVector3Array(-3.81722, -0.0272092, 2, 0.33842, 1.89646, 1.89646, 
 albedo_texture = ExtResource("3_ebug5")
 
 [node name="car" type="VehicleBody3D"]
+mass = 80.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(1, -1, 0)
+gravity_scale = 3.0
 
 [node name="CarBody" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_6mykx")
@@ -23,57 +27,57 @@ mesh = ExtResource("2_pxqt0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_fnbjr")
 
-[node name="back-left" type="VehicleWheel3D" parent="."]
+[node name="back_left" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.31, -1.83, -2)
 use_as_traction = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="back-left"]
+[node name="CarWheel" type="MeshInstance3D" parent="back_left"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
 
-[node name="back-right" type="VehicleWheel3D" parent="."]
+[node name="back_right" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.31, -1.83, 2)
 use_as_traction = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="back-right"]
+[node name="CarWheel" type="MeshInstance3D" parent="back_right"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
 
-[node name="front-left" type="VehicleWheel3D" parent="."]
+[node name="front_left" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.31, -1.83, -2)
 use_as_steering = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="front-left"]
+[node name="CarWheel" type="MeshInstance3D" parent="front_left"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
 
-[node name="front-right" type="VehicleWheel3D" parent="."]
+[node name="front_right" type="VehicleWheel3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.31, -1.83, 2)
 use_as_steering = true
 wheel_radius = 1.02
-suspension_stiffness = 50.0
+suspension_stiffness = 100.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="CarWheel" type="MeshInstance3D" parent="front-right"]
+[node name="CarWheel" type="MeshInstance3D" parent="front_right"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.83, 2.31)
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
