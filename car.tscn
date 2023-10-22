@@ -86,3 +86,12 @@ skeleton = NodePath("../..")
 
 [node name="gulp_sfx" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_1mgh5")
+
+[node name="bac_counter" type="RichTextLabel" parent="."]
+offset_left = 1862.0
+offset_top = 174.0
+offset_right = 2558.0
+offset_bottom = 346.0
+theme_override_font_sizes/normal_font_size = 111
+text = "BAC:
+"
