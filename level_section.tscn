@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=3 uid="uid://cl2kkurvbrpyt"]
+
+[ext_resource type="Script" path="res://building_generator.gd" id="1_ljbgm"]
+[ext_resource type="PackedScene" uid="uid://eo8suwiayffu" path="res://car.tscn" id="2_hhxf1"]
+[ext_resource type="PackedScene" uid="uid://dkkcnvekmc44o" path="res://pedestrian.tscn" id="2_skcva"]
+[ext_resource type="Script" path="res://assets/scripts/driving.gd" id="3_637af"]
+
+[sub_resource type="Environment" id="Environment_cjia2"]
+background_mode = 1
+background_color = Color(0.537255, 0.8, 1, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qg3rw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efibp"]
+albedo_color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o3gaq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_31ayt"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_elbj6"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mlo1d"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_igw05"]
+
+[node name="game" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0359755, 0.0861626, -0.0799446)
+script = ExtResource("1_ljbgm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cjia2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.368173, 0.929757, 0, -0.929757, -0.368173, -7.93154, 2.62626, -0.447525)
+shadow_enabled = true
+shadow_blur = 2.675
+
+[node name="Pedestrian" parent="." instance=ExtResource("2_skcva")]
+visible = false
+
+[node name="Terrain0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1671.01, 0, 0, 0, 1.06313, 0, 0, 0, 63.788, 0, 0, 0)
+mesh = SubResource("PlaneMesh_qg3rw")
+surface_material_override/0 = SubResource("StandardMaterial3D_efibp")
+
+[node name="SideWalkLeft" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.709279, -0.56347)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/SideWalkLeft"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_o3gaq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/SideWalkLeft"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_31ayt")
+
+[node name="SideWalkRight" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0.707935, 0.606593)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/SideWalkRight"]
+transform = Transform3D(2, -2.64698e-23, -2.64698e-23, -1.05879e-22, 1.18427, 0, 5.29396e-23, 2.64698e-23, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_o3gaq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/SideWalkRight"]
+transform = Transform3D(2, 5.82602e-23, 2.30025e-23, -7.00454e-23, 1.5, 2.64014e-24, 6.91826e-23, -1.30646e-23, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_31ayt")
+
+[node name="InvisibleLeftWall" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -6.66422e-31, 2.91302e-38, 0, -4.37114e-08, -1, 6.66422e-31, 1, -4.37114e-08, 0, 10.1762, -0.817959)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/InvisibleLeftWall"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_elbj6")
+
+[node name="InvisibleRightWall" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -6.66423e-31, 2.91303e-38, 0, -4.37114e-08, -1, 6.66423e-31, 1, -4.37114e-08, 5.45697e-12, 10.0923, 0.85814)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/InvisibleRightWall"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_elbj6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_mlo1d")
+
+[node name="LeftBuildingPlane" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.679695, -1.31456)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/LeftBuildingPlane"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0.00152254)
+mesh = SubResource("BoxMesh_igw05")
+
+[node name="RightBuildingPlane" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0.794754, 1.35658)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/RightBuildingPlane"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, -0.0921803, 0)
+mesh = SubResource("BoxMesh_igw05")
+
+[node name="Player" parent="." instance=ExtResource("2_hhxf1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.79677, 1.73305)
+script = ExtResource("3_637af")
+
+[node name="CameraPivot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -1.73625, -1.73305)
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.379044, 3.88086, 1.89931)

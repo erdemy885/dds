@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://eo8suwiayffu"]
+[gd_scene load_steps=9 format=3 uid="uid://eo8suwiayffu"]
 
 [ext_resource type="Texture2D" uid="uid://ytdg64jx26w1" path="res://assets/textures/CarRed.png" id="1_do7bp"]
-[ext_resource type="ArrayMesh" uid="uid://13c6mw1ijtjl" path="res://assets/models/car_body.obj" id="2_pxqt0"]
+[ext_resource type="ArrayMesh" uid="uid://gqqlkbok31o" path="res://assets/models/car_body.obj" id="2_pxqt0"]
 [ext_resource type="Texture2D" uid="uid://b07okfr0gckr0" path="res://assets/textures/WheelTexture.png" id="3_ebug5"]
-[ext_resource type="ArrayMesh" uid="uid://becyjibjkupnm" path="res://assets/models/car_wheel.obj" id="4_1bge8"]
+[ext_resource type="ArrayMesh" uid="uid://clrowc88x5jsk" path="res://assets/models/car_wheel.obj" id="4_1bge8"]
+[ext_resource type="AudioStream" uid="uid://djdpdchyfx7gd" path="res://assets/gulp.mp3" id="5_1mgh5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6mykx"]
 albedo_texture = ExtResource("1_do7bp")
@@ -82,3 +83,15 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1.
 material_override = SubResource("StandardMaterial3D_qf8hd")
 mesh = ExtResource("4_1bge8")
 skeleton = NodePath("../..")
+
+[node name="gulp_sfx" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_1mgh5")
+
+[node name="bac_counter" type="RichTextLabel" parent="."]
+offset_left = 1862.0
+offset_top = 174.0
+offset_right = 2558.0
+offset_bottom = 346.0
+theme_override_font_sizes/normal_font_size = 111
+text = "BAC:
+"
