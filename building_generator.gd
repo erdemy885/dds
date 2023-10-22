@@ -17,7 +17,7 @@ extends Node3D
 
 @onready var pedestrian = preload("res://pedestrian.tscn")
 
-@export var amount = 10
+@export var amount = 100
 @export var offset = 20
 
 var prev_wide = false;
