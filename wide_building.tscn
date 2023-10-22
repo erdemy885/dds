@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://i4xxx3nhow2g"]
+
+[ext_resource type="PackedScene" uid="uid://cid28q3ya6tcn" path="res://assets/models/wide_building.glb" id="1_xuxgx"]
+
+[node name="wide_building" instance=ExtResource("1_xuxgx")]

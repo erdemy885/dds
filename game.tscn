@@ -1,22 +1,14 @@
 [gd_scene load_steps=35 format=3 uid="uid://bukk7gmxkx0dd"]
 
 [ext_resource type="PackedScene" uid="uid://eo8suwiayffu" path="res://car.tscn" id="1_h3wr8"]
+[ext_resource type="Script" path="res://assets/scripts/Level.gd" id="1_wfpnf"]
 [ext_resource type="Script" path="res://assets/scripts/driving.gd" id="2_eqe7c"]
 [ext_resource type="Texture2D" uid="uid://c0vnuicq2p67j" path="res://assets/models/figure_Player.png" id="3_eyv36"]
 [ext_resource type="Script" path="res://pedestrian.gd" id="3_jw5ho"]
 [ext_resource type="Shader" path="res://drunk.gdshader" id="3_wugkr"]
 [ext_resource type="Script" path="res://assets/pedestrians/FatPedestrian/FatPedestrian.gd" id="5_7hm11"]
 [ext_resource type="Script" path="res://assets/pedestrians/MoveComponent/MoveComponent.gd" id="6_y77s5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqnme"]
-albedo_color = Color(0.258824, 0.258824, 0.258824, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ll6we"]
-material = SubResource("StandardMaterial3D_pqnme")
-size = Vector3(1000, 1, 1000)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_thib5"]
-data = PackedVector3Array(-500, 0.5, 500, 500, 0.5, 500, -500, -0.5, 500, 500, 0.5, 500, 500, -0.5, 500, -500, -0.5, 500, 500, 0.5, -500, -500, 0.5, -500, 500, -0.5, -500, -500, 0.5, -500, -500, -0.5, -500, 500, -0.5, -500, 500, 0.5, 500, 500, 0.5, -500, 500, -0.5, 500, 500, 0.5, -500, 500, -0.5, -500, 500, -0.5, 500, -500, 0.5, -500, -500, 0.5, 500, -500, -0.5, -500, -500, 0.5, 500, -500, -0.5, 500, -500, -0.5, -500, 500, 0.5, 500, -500, 0.5, 500, 500, 0.5, -500, -500, 0.5, 500, -500, 0.5, -500, 500, 0.5, -500, -500, -0.5, 500, 500, -0.5, 500, -500, -0.5, -500, 500, -0.5, 500, 500, -0.5, -500, -500, -0.5, -500)
+[ext_resource type="AudioStream" uid="uid://dai2utt76qvgr" path="res://assets/BeepBox-SongMain.mp3" id="8_58ohx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ceohf"]
 render_priority = 0
@@ -32,6 +24,42 @@ background_mode = 1
 background_color = Color(0.537255, 0.8, 1, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 reflected_light_source = 2
+
+[sub_resource type="GDScript" id="GDScript_snf8t"]
+script/source = "extends RigidBody3D
+
+@onready var anim_player = get_node(\"AnimationPlayer\")
+
+var dead = false;
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	anim_player.play(\"Running\")
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if not dead:
+		return
+	
+	#linear_velocity.y = -1.0
+	
+func _on_body_entered(body: Node):
+	if not body is VehicleBody3D:
+		return
+	
+	var figure: MeshInstance3D = $\"Armature/Figure\"
+	var ragdoll_skeleton: Skeleton3D = $\"Armature/RagdollSkeleton\"
+	var anim_player = $\"AnimationPlayer\"
+	
+	anim_player.stop()
+	figure.set_skeleton_path(\"../RagdollSkeleton\")
+	ragdoll_skeleton.physical_bones_start_simulation()
+	
+	linear_velocity = Vector3(0, 0, 0)
+	angular_velocity = Vector3(0, 0, 0)
+	
+	var dead = true
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lhnrv"]
 size = Vector3(2, 8, 1.2)
@@ -287,15 +315,23 @@ _data = {
 "Running": SubResource("Animation_n0ti2")
 }
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_qg3rw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o3gaq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_31ayt"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_elbj6"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mlo1d"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_igw05"]
+
 [node name="game" type="Node3D"]
-
-[node name="ground" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_ll6we")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="ground"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_thib5")
+script = ExtResource("1_wfpnf")
+sections = Array[PackedScene]([null])
 
 [node name="player" parent="." instance=ExtResource("1_h3wr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.72397, 0)
@@ -322,7 +358,7 @@ axis_lock_linear_y = true
 axis_lock_angular_z = true
 max_contacts_reported = 5
 contact_monitor = true
-script = ExtResource("3_jw5ho")
+script = SubResource("GDScript_snf8t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pedestrian"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19814, 0)
@@ -872,5 +908,69 @@ skeleton = NodePath("../Skeleton3D")
 libraries = {
 "": SubResource("AnimationLibrary_35oyx")
 }
+
+[node name="Terrain0" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 60, 0, 0, 0)
+mesh = SubResource("PlaneMesh_qg3rw")
+
+[node name="SideWalkLeft" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.709279, -0.56347)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/SideWalkLeft"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_o3gaq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/SideWalkLeft"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_31ayt")
+
+[node name="SideWalkRight" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0.707935, 0.606593)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/SideWalkRight"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_o3gaq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/SideWalkRight"]
+transform = Transform3D(2, 5.82602e-23, 2.30025e-23, -7.00454e-23, 1.5, 2.64014e-24, 6.91826e-23, -1.30646e-23, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_31ayt")
+
+[node name="InvisibleLeftWall" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -6.66422e-31, 2.91302e-38, 0, -4.37114e-08, -1, 6.66422e-31, 1, -4.37114e-08, 0, 10.1762, -0.817959)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/InvisibleLeftWall"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_elbj6")
+
+[node name="InvisibleRightWall" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, -6.66423e-31, 2.91303e-38, 0, -4.37114e-08, -1, 6.66423e-31, 1, -4.37114e-08, 2.08165e-12, 10.0923, 0.85814)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/InvisibleRightWall"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_elbj6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain0/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_mlo1d")
+
+[node name="LeftBuildingPlane" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.679695, -1.31456)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/LeftBuildingPlane"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0.00152254)
+mesh = SubResource("BoxMesh_igw05")
+
+[node name="RightBuildingPlane" type="StaticBody3D" parent="Terrain0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, 0.794754, 1.35658)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain0/RightBuildingPlane"]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, -0.0921803, 0)
+mesh = SubResource("BoxMesh_igw05")
+
+[node name="BG Music\\" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_58ohx")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="body_entered" from="Pedestrian" to="Pedestrian" method="_on_body_entered"]
