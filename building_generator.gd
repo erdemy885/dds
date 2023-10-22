@@ -17,7 +17,7 @@ extends Node3D
 
 @onready var pedestrian = preload("res://pedestrian.tscn")
 
-@export var amount = 100
+@export var amount = 300
 @export var offset = 20
 
 var prev_wide = false;
@@ -71,12 +71,8 @@ func _ready():
 			var rand_angle = rng.randf_range(0, 2*PI)
 			var rand_z = rng.randf_range(-25, 30)
 			
-			print(pedestrian_instance.transform.basis)
-			
 			pedestrian_instance.transform = pedestrian_instance.transform.rotated(Vector3(0, 1, 0), rand_angle)
 			pedestrian_instance.transform = pedestrian_instance.transform.translated(Vector3(offset * i - wide_offset, 0, rand_z))
-			
-			print(pedestrian_instance.transform.basis)
 			
 			add_child(pedestrian_instance)
 			

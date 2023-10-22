@@ -10,6 +10,9 @@
 script/source = "extends RigidBody3D
 
 @onready var anim_player = get_node(\"AnimationPlayer\")
+@onready var player_car = get_parent().get_node(\"Player\")
+
+signal pedestrian_hit
 
 var dead = false;
 
@@ -32,6 +35,8 @@ func _on_body_entered(body: Node):
 	var ragdoll_skeleton: Skeleton3D = $\"Armature/RagdollSkeleton\"
 	var anim_player = $\"AnimationPlayer\"
 	
+	player_car.score += 5
+	
 	anim_player.stop()
 	figure.set_skeleton_path(\"../RagdollSkeleton\")
 	ragdoll_skeleton.physical_bones_start_simulation()
@@ -46,6 +51,8 @@ func _on_body_entered(body: Node):
 	axis_lock_angular_z = false;
 	
 	dead = true
+	
+	emit_signal(\"pedestrian_hit\")
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lhnrv"]

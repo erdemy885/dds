@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://cl2kkurvbrpyt"]
+[gd_scene load_steps=17 format=3 uid="uid://cl2kkurvbrpyt"]
 
 [ext_resource type="Script" path="res://building_generator.gd" id="1_ljbgm"]
 [ext_resource type="PackedScene" uid="uid://eo8suwiayffu" path="res://car.tscn" id="2_hhxf1"]
 [ext_resource type="PackedScene" uid="uid://dkkcnvekmc44o" path="res://pedestrian.tscn" id="2_skcva"]
 [ext_resource type="Script" path="res://assets/scripts/driving.gd" id="3_637af"]
 [ext_resource type="Shader" path="res://drunk.gdshader" id="5_pbic1"]
+[ext_resource type="AudioStream" uid="uid://dai2utt76qvgr" path="res://assets/BeepBox-SongMain.mp3" id="6_cejtp"]
 
 [sub_resource type="Environment" id="Environment_cjia2"]
 background_mode = 1
@@ -51,10 +52,9 @@ shadow_enabled = true
 shadow_blur = 2.675
 
 [node name="Pedestrian" parent="." instance=ExtResource("2_skcva")]
-visible = false
 
 [node name="Terrain0" type="MeshInstance3D" parent="."]
-transform = Transform3D(1671.01, 0, 0, 0, 1.06313, 0, 0, 0, 63.788, 0, 0, 0)
+transform = Transform3D(50000, 0, 0, 0, 1.063, 0, 0, 0, 63.788, 0, 0, 0)
 mesh = SubResource("PlaneMesh_qg3rw")
 surface_material_override/0 = SubResource("StandardMaterial3D_efibp")
 
@@ -118,11 +118,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.79677, 1.73305)
 script = ExtResource("3_637af")
 
 [node name="CameraPivot" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -1.73625, -1.73305)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.379044, 3.88086, 1.89931)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.465325, 0, 0)
 
 [node name="drunk" type="MeshInstance3D" parent="Player/CameraPivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.59241)
 mesh = SubResource("QuadMesh_ygdm0")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_cejtp")
+
+[connection signal="pedestrian_hit" from="Pedestrian" to="Player" method="_on_pedestrian_pedestrian_hit"]
