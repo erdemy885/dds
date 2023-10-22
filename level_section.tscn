@@ -127,7 +127,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.465
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.59241)
 mesh = SubResource("QuadMesh_ygdm0")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="game_music" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_cejtp")
 
 [connection signal="pedestrian_hit" from="Pedestrian" to="Player" method="_on_pedestrian_pedestrian_hit"]
