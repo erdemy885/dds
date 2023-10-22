@@ -15,6 +15,8 @@ extends Node3D
 	preload("res://assets/textures/blue_mat.tres")
 ]
 
+@onready var pedestrian = preload("res://pedestrian.tscn")
+
 @export var amount = 10
 @export var offset = 20
 
@@ -64,6 +66,19 @@ func _ready():
 			mesh_node.set_surface_override_material(0, materials[mat_index])
 			
 			add_child(building_instance)
+			
+			var pedestrian_instance = pedestrian.instantiate()
+			var rand_angle = rng.randf_range(0, 2*PI)
+			var rand_z = rng.randf_range(-25, 30)
+			
+			print(pedestrian_instance.transform.basis)
+			
+			pedestrian_instance.transform = pedestrian_instance.transform.rotated(Vector3(0, 1, 0), rand_angle)
+			pedestrian_instance.transform = pedestrian_instance.transform.translated(Vector3(offset * i - wide_offset, 0, rand_z))
+			
+			print(pedestrian_instance.transform.basis)
+			
+			add_child(pedestrian_instance)
 			
 			if random_num == 3:
 				prev_wide = true
