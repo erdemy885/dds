@@ -4,6 +4,8 @@ extends VehicleBody3D
 @onready var bac_counter = get_node("bac_counter")
 @onready var score_counter = get_node("score_counter")
 
+@onready var music = get_node("game_music")
+
 @export var score = 0
 @export var bac = 0
 
@@ -12,6 +14,9 @@ var max_torque = 400
 var steering_speed = 5.0
 var time_since_last_drink = 0
 var prev_score = 0
+
+func _ready():
+	music.play()
 
 func _physics_process(delta):
 	time_since_last_drink += delta

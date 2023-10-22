@@ -17,8 +17,6 @@ extends Node3D
 
 @onready var pedestrian = preload("res://pedestrian.tscn")
 
-@onready var music = get_node("game_music")
-
 @export var amount = 300
 @export var offset = 20
 
@@ -26,8 +24,6 @@ var prev_wide = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	music.play()
-	
 	for i in range(amount): 
 			var random_num = randi() % 3
 			
