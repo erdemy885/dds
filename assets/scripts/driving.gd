@@ -22,12 +22,12 @@ func _physics_process(delta):
 		if steering_speed < 0.0:
 			steering_speed = 0.0
 		time_since_last_drink = 0
-    gulp_sfx.play()
-    
-  var bac = 0.4 - (0.4 * (steering_speed / 5))
-  bac_counter.text = "BAC: {}%".format([bac], "{}")
-		
-	var drunk = $Camera3D/drunk
+		gulp_sfx.play()
+	
+	var bac = 0.4 - (0.4 * (steering_speed / 5))
+	bac_counter.text = "BAC: {}%".format([bac], "{}")
+	
+	var drunk = $CameraPivot/Camera3D/drunk
 	var drunk_mat = drunk.get_active_material(0)
 	drunk_mat.set_shader_parameter("bac", steering_speed)
   

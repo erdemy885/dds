@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cl2kkurvbrpyt"]
+[gd_scene load_steps=16 format=3 uid="uid://cl2kkurvbrpyt"]
 
 [ext_resource type="Script" path="res://building_generator.gd" id="1_ljbgm"]
 [ext_resource type="PackedScene" uid="uid://eo8suwiayffu" path="res://car.tscn" id="2_hhxf1"]
 [ext_resource type="PackedScene" uid="uid://dkkcnvekmc44o" path="res://pedestrian.tscn" id="2_skcva"]
 [ext_resource type="Script" path="res://assets/scripts/driving.gd" id="3_637af"]
+[ext_resource type="Shader" path="res://drunk.gdshader" id="5_pbic1"]
 
 [sub_resource type="Environment" id="Environment_cjia2"]
 background_mode = 1
@@ -27,6 +28,15 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_igw05"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2uh65"]
+render_priority = 0
+shader = ExtResource("5_pbic1")
+shader_parameter/bac = null
+
+[sub_resource type="QuadMesh" id="QuadMesh_ygdm0"]
+material = SubResource("ShaderMaterial_2uh65")
+size = Vector2(2, 2)
 
 [node name="game" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0359755, 0.0861626, -0.0799446)
@@ -112,3 +122,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -1.73625, -1.73305)
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.379044, 3.88086, 1.89931)
+
+[node name="drunk" type="MeshInstance3D" parent="Player/CameraPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.59241)
+mesh = SubResource("QuadMesh_ygdm0")
