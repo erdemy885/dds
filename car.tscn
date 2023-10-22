@@ -88,10 +88,19 @@ skeleton = NodePath("../..")
 stream = ExtResource("5_1mgh5")
 
 [node name="bac_counter" type="RichTextLabel" parent="."]
-offset_left = 1862.0
-offset_top = 174.0
-offset_right = 2558.0
-offset_bottom = 346.0
+offset_left = 1603.0
+offset_top = 212.0
+offset_right = 2521.0
+offset_bottom = 387.0
 theme_override_font_sizes/normal_font_size = 111
 text = "BAC:
+"
+
+[node name="score_counter" type="RichTextLabel" parent="."]
+offset_left = 1597.0
+offset_top = 27.0
+offset_right = 2354.0
+offset_bottom = 245.0
+theme_override_font_sizes/normal_font_size = 100
+text = "Score:
 "
